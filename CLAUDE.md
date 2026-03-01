@@ -18,13 +18,23 @@ Secure Blender MCP server for isometric RTS sprite production. Built for Roots o
 - **No telemetry** — zero data collection
 - **Tests mirror source:** `src/blender_tools/protocol.py` → `tests/test_protocol.py`
 
+## Workflow
+
+- **Never push directly to main** — all changes require a pull request
+- **PRs must be up to date with main before merging** — rebase or merge main before push
+- **Before creating a branch:** `git fetch origin main` then branch from `origin/main`
+- **Before pushing:** `git pull origin main --rebase` to ensure the branch is current
+- **PR size limits:** CI warns at 500+ lines changed, blocks at 1000+ lines changed. Split large work into multiple PRs.
+- **Sign off commits** with `git commit -s`
+
 ## Quality Gates
 
 ```bash
-pytest --cov --cov-fail-under=95    # Tests + coverage
-ruff check src/ tests/              # Lint
-ruff format --check src/ tests/     # Format check
-mypy src/                           # Type check
+make check    # Run all checks (lint + typecheck + test)
+make test     # Tests + 95% coverage
+make lint     # Ruff lint + format check
+make typecheck  # Mypy strict
+make format   # Auto-format with ruff
 ```
 
 ## Architecture
